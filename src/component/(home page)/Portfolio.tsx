@@ -25,7 +25,7 @@ export default function Portfolio() {
     try {
       const response = await axios.get("https://api.github.com/user/repos", {
         headers: {
-          Authorization: "Bearer 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",
+          Authorization: "Bearer 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",
           "X-GitHub-Api-Version": "2022-11-28",
         },
         params: {
@@ -37,7 +37,7 @@ export default function Portfolio() {
           return (
             new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
           );
-        },
+        }
       );
       setData(sortedData);
       setLoading(false);

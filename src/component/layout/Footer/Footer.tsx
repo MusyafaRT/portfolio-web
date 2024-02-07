@@ -5,6 +5,11 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function Footer() {
+  const isValidEmail = (email: string) => {
+    const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return regex.test(email);
+  };
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,15 +17,23 @@ export default function Footer() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  const [emailError, setEmailError] = useState<string | null>(null);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+
+    if (name === "email") {
+      setEmailError(
+        value.trim() === "" || isValidEmail(value)
+          ? null
+          : "Please enter a valid email address."
+      );
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,7 +53,7 @@ export default function Footer() {
               description: `Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`,
             },
           ],
-        },
+        }
       );
       console.log("Message posted:", response);
       setFormData({ name: "", email: "", message: "" });
@@ -92,8 +105,13 @@ export default function Footer() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="bg-grey rounded-md text-black p-2 w-full"
+                  className={`bg-grey rounded-md text-black p-2 w-full ${
+                    emailError ? "border-red-500 border-2" : ""
+                  }`}
                 />
+                {emailError && (
+                  <p className="text-red-500 text-sm mt-1">{emailError}</p>
+                )}
               </div>
             </div>
             <div className="flex flex-col w-full">
