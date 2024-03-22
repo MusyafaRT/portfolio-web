@@ -1,80 +1,47 @@
 "use client";
-
-import { PostAuthSignUpReq } from "@/types/api/AuthAPI";
-import axios from "axios";
+import { PostAuthSignInReq } from "@/types/api/AuthAPI";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { BsEye, BsEyeFill } from "react-icons/bs";
+import { BsEye, BsEyeFill, BsGoogle } from "react-icons/bs";
+import { signIn } from "next-auth/react";
 import { CircleProgress } from "./CircleProgress";
 
-export default function SignUp() {
+export default function SignIn() {
   const [passwordShown, setPasswordShown] = React.useState(false);
-  const router = useRouter();
   const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
   const {
     handleSubmit,
     register,
     formState: { errors },
     setError,
-    watch,
-  } = useForm<PostAuthSignUpReq>();
-  const password = watch("password", "");
+  } = useForm<PostAuthSignInReq>();
 
-  const submitHandler = async (data: PostAuthSignUpReq) => {
+  const submitHandler = async (data: PostAuthSignInReq) => {
     setLoading(true);
-    try {
-      const response = await axios.post(
-        "/api/user",
-        {
-          name: data.name,
-          email: data.email,
-          password: data.password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response.status === 200) {
-        router.push("/sign-in");
-      } else {
-        console.log("error");
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error("Error:", error);
+    const signInData = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+    if (signInData?.error) {
+      console.log(signInData.error);
       setLoading(false);
+    } else {
+      router.push("/admin");
     }
   };
 
   return (
     <>
-      <div className="flex flex-col justify-center py-6 sm:px-6 lg:px-8 bg-darkBlue ">
+      <div className="flex flex-col justify-center py-[22.5px] sm:px-6 lg:px-8 bg-darkBlue ">
         <div className="relative mx-2 mt-8 sm:mx-auto sm:w-full sm:max-w-md rounded-xl bg-cyan">
           <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <h1 className="text-2xl pt-4 font-medium pb-4">
-              Create Your Account
+              Sign in to your account
             </h1>
             <form className="space-y-3" onSubmit={handleSubmit(submitHandler)}>
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Username
-                </label>
-                <div className="mt-1">
-                  <input
-                    {...register("name", { required: true })}
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
-              </div>
               <div>
                 <label
                   htmlFor="email"
@@ -90,7 +57,7 @@ export default function SignUp() {
                     })}
                     name="email"
                     type="text"
-                    autoComplete="username"
+                    autoComplete="email"
                     className={`block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${
                       errors.email ? "border-red-500" : ""
                     }`}
@@ -102,13 +69,14 @@ export default function SignUp() {
                   )}
                 </div>
               </div>
+
               <div>
                 <div className="flex justify-between">
                   <label
                     htmlFor="email"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Kata sandi
+                    Konfirmasi Kata sandi
                   </label>
                 </div>
                 <div className="mt-1 flex rounded-md shadow-sm">
@@ -149,60 +117,6 @@ export default function SignUp() {
                 </div>
                 {errors.password && (
                   <p className="text-red-500 text-sm mt-1">
-                    Password is required
-                  </p>
-                )}
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Konfirmasi Kata sandi
-                  </label>
-                </div>
-                <div className="mt-1 flex rounded-md shadow-sm">
-                  <div className="relative flex flex-grow items-stretch focus-within:z-10">
-                    <input
-                      {...register("confirmPassword", {
-                        required: true,
-                        validate: (value) => value === password,
-                      })}
-                      type={passwordShown ? "text" : "password"}
-                      name="confirmPassword"
-                      autoComplete="current-password"
-                      className={`block w-full rounded-none px-3 rounded-l-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                        errors.confirmPassword ? "border-red-500" : ""
-                      }`}
-                    />
-                  </div>
-                  {passwordShown ? (
-                    <button
-                      type="button"
-                      onClick={() => setPasswordShown(false)}
-                      className="btn relative -ml-px inline-flex items-center space-x-2 rounded-r-md bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none"
-                    >
-                      <BsEyeFill
-                        className="h-5 w-5 text-gray-400"
-                        aria-hidden="true"
-                      />
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => setPasswordShown(true)}
-                      className="btn relative -ml-px inline-flex items-center space-x-2 rounded-r-md bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 "
-                    >
-                      <BsEye
-                        className="h-5 w-5 text-gray-400"
-                        aria-hidden="true"
-                      />
-                    </button>
-                  )}
-                </div>
-                {errors.confirmPassword && (
-                  <p className="text-red-500 text-sm mt-1">
                     Password is not match
                   </p>
                 )}
@@ -211,18 +125,17 @@ export default function SignUp() {
                     type="submit"
                     className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-indigo-200"
                   >
-                    {loading ? <CircleProgress /> : null}
-                    Sign Up
+                    {loading ? <CircleProgress /> : "Sign In"}
                   </button>
                 </div>
               </div>
               <p className="text-sm font-light text-gray-800 dark:text-gray-700">
-                Do you have an account?{" "}
+                Don’t have an account yet?{" "}
                 <a
                   href="#"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
-                  Sign In
+                  Sign up
                 </a>
               </p>
             </form>

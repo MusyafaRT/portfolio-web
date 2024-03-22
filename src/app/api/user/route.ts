@@ -1,5 +1,5 @@
 import { NextResponse, userAgent } from "next/server";
-import prisma from "../../lib/prisma";
+import prisma from "../lib/prisma";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
@@ -40,13 +40,12 @@ export async function POST(req: Request) {
       status: 200,
     });
   } catch (error) {
-    console.error("Error creating user:", error);
     return NextResponse.json(
       {
         user: null,
-        error: "Internal server error",
+        error: "Something wrong!",
       },
-      { status: 500 }
+      { status: 201 }
     );
   }
 }

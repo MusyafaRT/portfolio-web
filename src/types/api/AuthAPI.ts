@@ -4,3 +4,14 @@ export interface PostAuthSignUpReq {
   confirmPassword: string;
   name: string;
 }
+
+export interface PostAuthSignInReq {
+  email: string;
+  password: string;
+}
+
+export interface PostProjectReq {
+  title: string;
+  content: string;
+  image?: string;
+}

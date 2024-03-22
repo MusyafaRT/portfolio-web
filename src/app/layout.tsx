@@ -2,6 +2,7 @@ import Navbar from "@/component/layout/Navbar/Navbar";
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import Footer from "@/component/layout/Footer/Footer";
+import Provider from "@/component/Provider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <main className="flex flex-col justify-center m-auto">
-          <Navbar />
-          {children}
-          <Footer />
-        </main>
+        <Provider>
+          <main className="flex flex-col justify-center m-auto">
+            <Navbar />
+            {children}
+            <Footer />
+          </main>
+        </Provider>
       </body>
     </html>
   );
