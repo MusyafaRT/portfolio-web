@@ -1,9 +1,9 @@
-import Home from "@/component/(home page)/page";
+import Banner from "@/component/home/Banner";
 
 export default function App() {
   return (
-    <>
-      <Home />
-    </>
+    <div className="">
+      <Banner />
+    </div>
   );
 }

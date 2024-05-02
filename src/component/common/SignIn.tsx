@@ -15,7 +15,6 @@ export default function SignIn() {
     handleSubmit,
     register,
     formState: { errors },
-    setError,
   } = useForm<PostAuthSignInReq>();
 
   const submitHandler = async (data: PostAuthSignInReq) => {
@@ -25,8 +24,10 @@ export default function SignIn() {
       password: data.password,
       redirect: false,
     });
+    if (signInData) {
+      router.push("/admin");
+    }
     if (signInData?.error) {
-      console.log(signInData.error);
       setLoading(false);
     } else {
       router.push("/admin");
@@ -35,7 +36,7 @@ export default function SignIn() {
 
   return (
     <>
-      <div className="flex flex-col justify-center py-[22.5px] sm:px-6 lg:px-8 bg-darkBlue ">
+      <div className="flex flex-col justify-center py-[22.5px] sm:px-6 lg:px-8 bg-darkBlue min-h-screen">
         <div className="relative mx-2 mt-8 sm:mx-auto sm:w-full sm:max-w-md rounded-xl bg-cyan">
           <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <h1 className="text-2xl pt-4 font-medium pb-4">
@@ -132,7 +133,7 @@ export default function SignIn() {
               <p className="text-sm font-light text-gray-800 dark:text-gray-700">
                 Don’t have an account yet?{" "}
                 <a
-                  href="#"
+                  href="sign-up"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Sign up

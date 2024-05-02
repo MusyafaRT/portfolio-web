@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { BiFoodMenu } from "react-icons/bi";
 import { MdMenuBook } from "react-icons/md";
-import Contact from "../Footer/Contact";
+import Contact from "../../common/Footer/Contact";
 
 export default function MobileNavbar() {
   const [open, setOpen] = useState(false);

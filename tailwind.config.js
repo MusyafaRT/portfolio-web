@@ -20,5 +20,17 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+
+  plugins: [
+    require("tailwind-typewriter")({
+      wordsets: {
+        skills: {
+          words: ["FrontEnd Developer.", "Android Developer."],
+          writeSpeed: 0.1,
+          deleteSpeed: 0.1,
+          pauseBetween: 1,
+        },
+      },
+    }),
+  ],
 };

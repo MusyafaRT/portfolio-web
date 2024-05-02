@@ -12,6 +12,7 @@ export interface PostAuthSignInReq {
 
 export interface PostProjectReq {
   title: string;
+  type: string;
   content: string;
-  image?: string;
+  image?: File;
 }

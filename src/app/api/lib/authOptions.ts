@@ -12,6 +12,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/sign-in",
+    signOut: "/sign-out",
   },
   providers: [
     CredentialsProvider({
@@ -57,6 +58,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         return {
           ...token,
+          id: user.id,
           name: user.name,
         };
       }
@@ -67,6 +69,7 @@ export const authOptions: NextAuthOptions = {
         ...session,
         user: {
           ...session.user,
+          id: token.id,
           name: token.name,
         },
       };

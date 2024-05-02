@@ -1,13 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
+import React from "react";
 import Heading from "../common/Heading";
-import PortfolioCard from "../portfolio/PortfolioCard";
+import PortfolioCard from "./PortfolioCard";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import Image from "next/image";
 import axios from "axios";
+import { ListProjectRes } from "@/types/api/Project";
+import useFetchApi from "../common/hooks/useFetchApi";
 
 const SkeletonCard = ({ index }: { index: number }) => (
   <div
@@ -18,52 +20,25 @@ const SkeletonCard = ({ index }: { index: number }) => (
 );
 
 export default function Portfolio() {
-  const [data, setData] = useState<GitHubRepository[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchUserRepos = async () => {
-    try {
-      const response = await axios.get("https://api.github.com/user/repos", {
-        headers: {
-          Authorization: "Bearer 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",
-          "X-GitHub-Api-Version": "2022-11-28",
-        },
-        params: {
-          visibility: "all",
-        },
-      });
-      const sortedData = response.data.sort(
-        (a: GitHubRepository, b: GitHubRepository) => {
-          return (
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-          );
-        }
-      );
-      setData(sortedData);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching user repositories:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUserRepos();
-  }, []);
+  const { data, error, isLoading } = useFetchApi<null, ListProjectRes>(
+    "/api/project",
+    null,
+    { method: "GET" },
+    { skipCall: false, revalidateOnMount: true }
+  );
 
   return (
-    <section className="py-16 bg-grey">
-      <main className="max-w-6xl mx-auto flex flex-col gap-10">
+    <section className="h-screen bg-grey flex w-full flex-col justify-center items-center gap-4">
+      <div className="max-w-6xl w-full gap-10 flex flex-col">
         <Heading text="Portofolio" />
-        <div className="block">
-          {loading ? ( // Show skeleton loading UI while loading
+        <div className="block w-full">
+          {isLoading ? (
             <div className="flex flex-wrap justify-center gap-10">
-              {/* Render multiple skeleton cards */}
               {Array.from(Array(3).keys()).map((index) => (
                 <SkeletonCard key={index} index={index} />
               ))}
             </div>
           ) : (
-            // Render actual data once loaded
             <Swiper
               spaceBetween={25}
               slidesPerView={3}
@@ -75,9 +50,9 @@ export default function Portfolio() {
               onSwiper={(swiper) => console.log(swiper)}
               className="porto"
             >
-              {data.map((repo) => (
-                <SwiperSlide key={repo.id}>
-                  <PortfolioCard repository={repo} />
+              {data.project?.map((value, index) => (
+                <SwiperSlide key={index}>
+                  <PortfolioCard project={value} />
                 </SwiperSlide>
               ))}
               <div className="absolute top-1/2 right-0 transform -translate-y-1/2 z-50 next-button-el">
@@ -91,7 +66,7 @@ export default function Portfolio() {
             </Swiper>
           )}
         </div>
-      </main>
+      </div>
     </section>
   );
 }

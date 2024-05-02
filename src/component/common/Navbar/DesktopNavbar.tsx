@@ -1,9 +1,10 @@
 import Link from "next/link";
-import Contact from "../Footer/Contact";
+import Contact from "../../common/Footer/Contact";
+import React from "react";
 
 export default async function DesktopNav() {
   return (
-    <nav className=" text-cyan  p-6  bg-darkBlue">
+    <nav className="text-cyan p-6 bg-darkBlue ">
       <div className="max-w-6xl mx-auto desktop:flex items-center justify-between hidden">
         <h1 className="text-3xl font-bold">RonggoTM</h1>
         <div className="flex gap-14">
