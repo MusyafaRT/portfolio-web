@@ -3,7 +3,9 @@ import Portfolio from "@/component/portfolio/Portfolio";
 const PortfolioPage = () => {
   return (
     <>
-      <Portfolio />
+      <section className="h-screen">
+        <Portfolio />
+      </section>
     </>
   );
 };

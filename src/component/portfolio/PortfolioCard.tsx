@@ -12,7 +12,7 @@ const PortfolioCard: React.FC<PortofolioCardsProps> = ({ project }) => {
   console.log(project);
   return (
     <div className="relative bg-darkBlue text-cyan flex justify-between items-start p-6 rounded-3xl">
-      <div className="flex flex-col justify-between w-fit h-full gap-3">
+      <div className="flex flex-col justify-between gap-3">
         <div className="flex justify-between">
           <h1 className="text-2xl break-all">{project.title}</h1>
           <FontAwesomeIcon
@@ -22,13 +22,14 @@ const PortfolioCard: React.FC<PortofolioCardsProps> = ({ project }) => {
             className="z-10 flex items-start text-white"
           />
         </div>
-        <Image
-          src={project.image}
-          alt={project.title}
-          width={350}
-          height={200}
-          className="rounded-xl"
-        />
+        <div className="relative min-h-[220px]">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="rounded-xl "
+          />
+        </div>
         <span className="text-xs opacity-80">{project.type}</span>
         <p className="text-sm">{project.content}</p>
       </div>

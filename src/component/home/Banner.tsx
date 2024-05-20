@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Banner() {
   return (
     <section
-      className="py-12 bg-darkBlue h-screen flex flex-col lg:flex-row justify-between items-center lg:gap-24 "
+      className="bg-darkBlue h-full flex flex-col lg:flex-row justify-between items-center lg:gap-24 "
       style={{
         backgroundImage: 'url("/assets/texture2.png")',
         backgroundSize: "cover",

@@ -28,7 +28,7 @@ export default function Portfolio() {
   );
 
   return (
-    <section className="h-screen bg-grey flex w-full flex-col justify-center items-center gap-4">
+    <section className="h-screen bg-grey flex w-full flex-col justify-center items-center gap-4 ">
       <div className="max-w-6xl w-full gap-10 flex flex-col">
         <Heading text="Portofolio" />
         <div className="block w-full">
@@ -40,7 +40,7 @@ export default function Portfolio() {
             </div>
           ) : (
             <Swiper
-              spaceBetween={25}
+              spaceBetween={15}
               slidesPerView={3}
               loop
               navigation={{
@@ -50,7 +50,7 @@ export default function Portfolio() {
               onSwiper={(swiper) => console.log(swiper)}
               className="porto"
             >
-              {data.project?.map((value, index) => (
+              {data?.project?.map((value, index) => (
                 <SwiperSlide key={index}>
                   <PortfolioCard project={value} />
                 </SwiperSlide>

@@ -1,21 +1,13 @@
 "use client";
 
-import { PostProjectReq } from "@/types/api/AuthAPI";
 import { Dialog, Transition } from "@headlessui/react";
-import { XIcon } from "@heroicons/react/outline";
-import { PutBlobResult } from "@vercel/blob";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import useFetchApi from "../common/hooks/useFetchApi";
-import {
-  ListProjectRes,
-  ProjectDetailReq,
-  ProjectDetailRes,
-} from "@/types/api/Project";
-import { title } from "process";
+import { ProjectDetailReq, ProjectDetailRes } from "@/types/api/Project";
+import { CircleProgress } from "../common/CircleProgress";
 
 interface ModalProps {
   open: boolean;
@@ -35,6 +27,7 @@ function ModalPortfolio(props: ModalProps) {
   const inputFileRef = React.useRef<HTMLInputElement>(null);
   const { data: session } = useSession();
   const { open, setOpen, selectedId } = props;
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const toggleModal = () => {
     setOpen(!open);
@@ -54,6 +47,7 @@ function ModalPortfolio(props: ModalProps) {
   );
 
   const submitHandler = async (data: FormState) => {
+    setIsLoading(true);
     if (!inputFileRef.current?.files) {
       throw new Error("No file selected");
     }
@@ -79,8 +73,10 @@ function ModalPortfolio(props: ModalProps) {
           props.onSuccess();
           toggleModal();
         }
+        setIsLoading(false);
       } catch (error) {
         console.error("Error uploading project:", error);
+        setIsLoading(false);
       }
     } else {
       try {
@@ -100,8 +96,10 @@ function ModalPortfolio(props: ModalProps) {
           props.onSuccess();
           toggleModal();
         }
+        setIsLoading(false);
       } catch (error) {
         console.error("Error updating project:", error);
+        setIsLoading(false);
       }
     }
   };
@@ -258,6 +256,7 @@ function ModalPortfolio(props: ModalProps) {
                     type="submit"
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange text-base font-medium hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange sm:ml-3 sm:w-auto sm:text-sm"
                   >
+                    {isLoading ? <CircleProgress /> : null}
                     {selectedId ? "Update" : "Create"}
                   </button>
                   <button

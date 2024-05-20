@@ -8,6 +8,7 @@ import ConfirmDialog from "../common/ConfirmDialog";
 import useFetchApi from "../common/hooks/useFetchApi";
 import { ListProjectRes } from "@/types/api/Project";
 import ModalPortfolio from "./ModalPortfolio";
+import { CircleProgress } from "../common/CircleProgress";
 
 export default function AdminPage() {
   const [confirmId, setConfirmId] = React.useState(0);
@@ -45,7 +46,7 @@ export default function AdminPage() {
     } catch (error) {
       console.error("Error deleting data:", error);
     } finally {
-      setLoading(false); // Set loading to false after deleting data
+      setLoading(false);
     }
     mutate();
   };
