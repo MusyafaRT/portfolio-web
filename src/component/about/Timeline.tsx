@@ -22,16 +22,16 @@ const TimelineVertical = (props: TimelineData) => {
       <div className="order-1 bg-grey rounded-lg shadow-xl w-5/6 px-6 py-4">
         <p className="text-sm leading-snug tracking-wide text-cyan text-opacity-100">
           {props.text}
-          {props.detail && (
-            <ul className="list-disc ml-6">
-              {props.detail.map((item, index) => (
-                <li key={index} className="mb-1">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          )}
         </p>
+        {props.detail && (
+          <ul className="list-disc ml-6">
+            {props.detail.map((item, index) => (
+              <li key={index} className="mb-1">
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
@@ -48,18 +48,18 @@ const TimelineHorizontal = (props: TimelineData) => {
       )}
       {/* Vertical line */}
       <div className="order-1 bg-grey rounded-lg shadow-md w-5/6 px-6 py-4 my-1">
-        <p className="text-base leading-relaxed text-cyan">
+        <p className="text-sm leading-snug tracking-wide text-cyan text-opacity-100">
           {props.text}
-          {props.detail && (
-            <ul className="list-disc ml-6">
-              {props.detail.map((item, index) => (
-                <li key={index} className="mb-1">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          )}
         </p>
+        {props.detail && (
+          <ul className="list-disc ml-6">
+            {props.detail.map((item, index) => (
+              <li key={index} className="mb-1">
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

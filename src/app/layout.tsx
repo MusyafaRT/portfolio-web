@@ -12,6 +12,7 @@ const roboto = Roboto({
 export const metadata = {
   title: "RonggoTM",
   description: "Portfolio Web of Ronggo Tsani Musyafa",
+  icons: [{ rel: "icon", url: "@/public/assets/point.svg" }],
 };
 
 export default function RootLayout({
