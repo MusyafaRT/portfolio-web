@@ -2,15 +2,6 @@
 @tailwind utilities;
 @tailwind components;
 
-.porto .swiper-slide {
-  transform: scale(0.8) !important;
-  transition: transform 0.3s ease !important;
-}
-
-.porto .swiper-slide-active {
-  transform: scale(1) !important;
-}
-
 ::-webkit-scrollbar {
   background: #223741;
   width: 10px;

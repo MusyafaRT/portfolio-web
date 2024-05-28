@@ -27,7 +27,7 @@ const TimelineData = [
 
 export default function AboutPage() {
   return (
-    <section className="flex flex-col justify-center items-center h-full max-w-7xl mx-auto gap-10">
+    <section className="flex flex-col justify-center items-center h-full px-2 pt-20 sm:pt-0 max-w-7xl mx-auto gap-10">
       <div className="flex flex-col md:flex-row gap-10 flex-1 justify-center items-center px-10 md:py-28">
         <div className="relative mt-8 lg:mt-0">
           <div className="relative bg-grey rounded-tl-[55%] rounded-tr-[5%] rounded-bl-[5%] rounded-br-[55%] border-[#496A71] border-[32px] overflow-hidden w-[250px] h-[380px] lg:w-[394px] lg:h-[518px] transition-transform duration-500 ease-in-out transform hover:scale-105">

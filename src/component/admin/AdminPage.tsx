@@ -9,6 +9,7 @@ import useFetchApi from "../common/hooks/useFetchApi";
 import { ListProjectRes } from "@/types/api/Project";
 import ModalPortfolio from "./ModalPortfolio";
 import { CircleProgress } from "../common/CircleProgress";
+import ModalStory from "./ModalStory";
 
 export default function AdminPage() {
   const [confirmId, setConfirmId] = React.useState(0);
@@ -27,6 +28,17 @@ export default function AdminPage() {
   }>({
     open: false,
     selectedId: undefined,
+  });
+  const handleShowFormStory = (open: boolean) => {
+    setFormStoryModalState({
+      open,
+    });
+  };
+
+  const [formStoryModalState, setFormStoryModalState] = React.useState<{
+    open: boolean;
+  }>({
+    open: false,
   });
 
   const { data, error, isLoading, mutate } = useFetchApi<null, ListProjectRes>(
@@ -86,12 +98,14 @@ export default function AdminPage() {
         >
           Add Portfolio
         </button>
-        <Link
-          href="/add-story"
+        <button
+          onClick={() => {
+            handleShowFormStory(!formStoryModalState?.open);
+          }}
           className="bg-orange rounded-md p-3 hover:opacity-80"
         >
           Add Story
-        </Link>
+        </button>
         <Link
           href="/show-story"
           className="bg-orange rounded-md p-3 hover:opacity-80"
@@ -199,6 +213,13 @@ export default function AdminPage() {
               setOpen={(open: boolean) => handleShowForm(open)}
               onSuccess={() => mutate()}
               selectedId={formModalState?.selectedId}
+            />
+          )}
+          {formStoryModalState?.open && (
+            <ModalStory
+              open={formStoryModalState?.open}
+              setOpen={(open: boolean) => handleShowFormStory(open)}
+              onSuccess={() => mutate()}
             />
           )}
         </table>

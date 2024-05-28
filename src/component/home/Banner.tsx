@@ -30,16 +30,10 @@ export default function Banner() {
           </h3>
           <div className="flex gap-5">
             <Link
-              href={"/about"}
+              href={"/contact"}
               className="text-darkBlue bg-orange px-4 py-2 text-2xl font-bold rounded-xl transition-transform duration-75 ease-in-out transform hover:scale-105"
             >
-              About Me
-            </Link>
-            <Link
-              href={"/portfolio"}
-              className="text-darkBlue bg-orange px-4 py-2 text-2xl font-bold rounded-xl transition-transform duration-75 ease-in-out transform hover:scale-105"
-            >
-              Portfolio
+              Contact
             </Link>
           </div>
         </div>

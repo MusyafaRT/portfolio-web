@@ -4,10 +4,10 @@ import Heading from "../common/Heading";
 import PortfolioCard from "./PortfolioCard";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import "./Portfolio.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import Image from "next/image";
-import axios from "axios";
 import { ListProjectRes } from "@/types/api/Project";
 import useFetchApi from "../common/hooks/useFetchApi";
 
@@ -47,7 +47,6 @@ export default function Portfolio() {
                 nextEl: ".next-button-el",
               }}
               modules={[Navigation]}
-              onSwiper={(swiper) => console.log(swiper)}
               className="porto"
             >
               {data?.project?.map((value, index) => (

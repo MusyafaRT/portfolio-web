@@ -24,7 +24,7 @@ export default function Navbar() {
               id="navbar-default"
             >
               <Link href="/about">
-                <h2 className="text-2xl font-medium">My Story</h2>
+                <h2 className="text-2xl font-medium">About Me</h2>
               </Link>
               <Link href="/portfolio">
                 <h2 className="text-2xl font-medium">Portofolio</h2>

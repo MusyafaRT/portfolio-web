@@ -19,12 +19,12 @@ const TimelineVertical = (props: TimelineData) => {
       {!props.last && (
         <div className="absolute h-full w-1 bg-gray-300 left-[1.85rem] top-1/3"></div>
       )}
-      <div className="order-1 bg-grey rounded-lg shadow-xl w-5/6 px-6 py-4">
+      <div className="order-1 bg-grey rounded-lg shadow-xl w-5/6 px-6 py-4 mx-2 hover:scale-95">
         <p className="text-sm leading-snug tracking-wide text-cyan text-opacity-100">
           {props.text}
         </p>
         {props.detail && (
-          <ul className="list-disc ml-6">
+          <ul className="list-disc ml-6 text-cyan">
             {props.detail.map((item, index) => (
               <li key={index} className="mb-1">
                 {item}
@@ -44,15 +44,15 @@ const TimelineHorizontal = (props: TimelineData) => {
         <p className="text-white font-semibold">{props.date}</p>
       </div>
       {!props.last && (
-        <div className="absolute h-1 w-full bg-gray-300 top-[4.5rem] left-1/2"></div>
+        <div className="absolute h-1 w-full bg-gray-300 top-[4.5rem] left-[55%]"></div>
       )}
       {/* Vertical line */}
-      <div className="order-1 bg-grey rounded-lg shadow-md w-5/6 px-6 py-4 my-1">
+      <div className="order-1 bg-grey rounded-lg shadow-md w-5/6 px-6 py-4 my-1 hover:scale-95">
         <p className="text-sm leading-snug tracking-wide text-cyan text-opacity-100">
           {props.text}
         </p>
         {props.detail && (
-          <ul className="list-disc ml-6">
+          <ul className="list-disc ml-6 text-cyan">
             {props.detail.map((item, index) => (
               <li key={index} className="mb-1">
                 {item}
